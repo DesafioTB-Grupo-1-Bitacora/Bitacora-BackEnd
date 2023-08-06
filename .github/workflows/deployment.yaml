@@ -27,11 +27,14 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '18.x'
+    - name: Print env
+      run:  env
     - name: Tag version
       uses: tvdias/github-tagger@v0.0.1
       with:
         repo-token: ${{ secrets.ACCESS_TOKEN }}
         tag: ${{ env.DEPLOY_ENV }}-${{ github.run_id }}
+      if: github.event_name != 'pull_request'
     - name: Install NPM dependencies
       run: npm ci --cache .npm --prefer-offline
     - name: Install Serverless Framework
@@ -43,3 +46,4 @@ jobs:
        sls deploy --stage ${{ env.DEPLOY_ENV }} --verbose --force
        sls plugin install -n serverless-prune-plugin
        sls prune --stage $DEPLOY_ENV -n 5 
+      if: github.event_name != 'pull_request'
