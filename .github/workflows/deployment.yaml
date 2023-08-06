@@ -20,7 +20,7 @@ jobs:
   deploy-dev:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: dev
+    environment: ${{ github.event.inputs.environment || 'dev' }}
     env:
      DB_NAME: ${{ vars.DB_NAME }}
      DB_HOST: ${{ vars.DB_HOST }}
