@@ -20,8 +20,7 @@ jobs:
   deploy-dev:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: 
-      name: ${{ github.event.inputs.environment || 'dev' }}
+    environment: dev
 
     steps:
     - uses: actions/checkout@v1
@@ -31,7 +30,7 @@ jobs:
     - name: Printenv
       run: |
         env
-        echo {{ vars.DB_NAME}}
+        echo {{ env.DB_NAME}}
     - name: Tag version
       uses: tvdias/github-tagger@v0.0.1
       with:
