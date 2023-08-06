@@ -21,4 +21,5 @@ app.use(({ statusCode, error }, _, res, __) => {
 
 app.listen(process.env.PORT, () => console.log("> Listening at:", process.env.PORT));
 
+console.log('DB', {name: process.env.DB_NAME})
 module.exports = app;
