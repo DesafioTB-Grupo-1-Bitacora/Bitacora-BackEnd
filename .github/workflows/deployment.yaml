@@ -20,15 +20,15 @@ jobs:
   deploy-dev:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: $DEPLOY_ENV
+    environment: '{{ env.DEPLOY_ENV }}'
 
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
       with:
         node-version: '18.x'
-    - name: Print env
-      run:  env
+    - name: Printenv
+      run: env
     - name: Tag version
       uses: tvdias/github-tagger@v0.0.1
       with:
