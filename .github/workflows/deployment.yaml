@@ -29,7 +29,9 @@ jobs:
       with:
         node-version: '18.x'
     - name: Printenv
-      run: env
+      run: |
+        env
+        echo {{ vars.DB_NAME}}
     - name: Tag version
       uses: tvdias/github-tagger@v0.0.1
       with:
