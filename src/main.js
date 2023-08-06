@@ -6,7 +6,7 @@ const routes = require("./routes");
 
 const app = express();
 app.use(express.json());
-app.use(routes(db));
+app.use('/bitacora-service', routes(db));
 
 app.use((_, __, next) => {
     next(errors[404])
@@ -20,3 +20,5 @@ app.use(({ statusCode, error }, _, res, __) => {
 })
 
 app.listen(process.env.PORT, () => console.log("> Listening at:", process.env.PORT));
+
+module.exports = app;

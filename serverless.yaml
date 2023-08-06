@@ -1,0 +1,35 @@
+service: 'bitacora-service'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: 'us-west-2'
+  architecture: arm64
+  timeout: 60
+  memorySize: 1024
+  deploymentMethod: direct
+  versionFunctions: false
+  deploymentBucket: serverless-pipeline-code-thebridge
+  tags:
+    app: platform
+    env: '${opt:stage}'
+    LUMIGO_TAG: '${opt:stage}'
+  environment:
+    ENVIRONMENT: '${opt:stage}'
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1 # makes the aws sdk reuse the HTTP(s) connections, speeds ups connections and DynamoDB specially.
+    NO_COLOR: true
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+functions:
+  entrypoint:
+    handler: src/index.handler
+
+custom:
+  webpack:
+    webpackConfig: 'webpack.config.js' # Name of webpack configuration file
+    includeModules: true # Node modules configuration for packaging
+    packager: 'npm' # Packager that will be used to package your external modules
+    excludeFiles: src # Provide a glob for files to ignore
