@@ -20,7 +20,8 @@ jobs:
   deploy-dev:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: $DEPLOY_ENV
+    environment: 
+      name: '{{ env.DEPLOY_ENV }}'
 
     steps:
     - uses: actions/checkout@v1
