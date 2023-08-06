@@ -21,6 +21,10 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     environment: dev
+    env:
+     DB_NAME: ${{ vars.DB_NAME }}
+     DB_HOST: ${{ vars.DB_HOST }}
+     DB_PORT: ${{ vars.DB_PORT }}
 
     steps:
     - uses: actions/checkout@v1
@@ -31,12 +35,6 @@ jobs:
       run: |
         env
         echo {{ env.DB_NAME}}
-    - name: Tag version
-      uses: tvdias/github-tagger@v0.0.1
-      with:
-        repo-token: ${{ secrets.ACCESS_TOKEN }}
-        tag: ${{ env.DEPLOY_ENV }}-${{ github.run_id }}
-      if: github.event_name != 'pull_request'
     - name: Install NPM dependencies
       run: npm ci --cache .npm --prefer-offline
     - name: Install Serverless Framework
@@ -48,4 +46,10 @@ jobs:
        sls deploy --stage ${{ env.DEPLOY_ENV }} --verbose --force
        sls plugin install -n serverless-prune-plugin
        sls prune --stage $DEPLOY_ENV -n 5 
+      if: github.event_name != 'pull_request'
+    - name: Tag version
+      uses: tvdias/github-tagger@v0.0.1
+      with:
+        repo-token: ${{ secrets.ACCESS_TOKEN }}
+        tag: ${{ env.DEPLOY_ENV }}-${{ github.run_id }}
       if: github.event_name != 'pull_request'
