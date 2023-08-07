@@ -21,10 +21,6 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment || 'dev' }}
-    env:
-     DB_NAME: ${{ vars.DB_NAME }}
-     DB_HOST: ${{ vars.DB_HOST }}
-     DB_PORT: ${{ vars.DB_PORT }}
 
     steps:
     - uses: actions/checkout@v1
@@ -34,6 +30,8 @@ jobs:
     - name: Get env variables
       run: |
         echo $vars >> $GITHUB_ENV
+    - name: Printenv
+      run: env
     - name: Install NPM dependencies
       run: npm ci --cache .npm --prefer-offline
     - name: Install Serverless Framework
