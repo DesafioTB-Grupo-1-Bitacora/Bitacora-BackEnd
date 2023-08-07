@@ -31,16 +31,6 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '18.x'
-    - name: Print vars
-      run: |
-        for var in ${{vars}}; do
-          echo var
-          echo 'Variable printeada'
-        done
-    - name: Printenv
-      run: |
-        env
-        echo {{ env.DB_NAME}}
     - name: Install NPM dependencies
       run: npm ci --cache .npm --prefer-offline
     - name: Install Serverless Framework
