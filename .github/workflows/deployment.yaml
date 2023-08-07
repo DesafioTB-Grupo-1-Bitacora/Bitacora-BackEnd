@@ -35,6 +35,7 @@ jobs:
       run: |
         for var in ${{vars}}; do
           echo var
+          echo 'Variable printeada'
         done
     - name: Printenv
       run: |
