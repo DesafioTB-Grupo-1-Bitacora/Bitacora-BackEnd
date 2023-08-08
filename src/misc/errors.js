@@ -17,6 +17,10 @@ module.exports = {
       "password must include letters (lowercase and uppercase), numbers, and symbols"
     ),
   },
+  blocked_account: {
+    statusCode: 400,
+    error: new Error("account locked for too many attempts"),
+  },
   401: {
     statusCode: 401,
     error: new Error("unauthorized"),
