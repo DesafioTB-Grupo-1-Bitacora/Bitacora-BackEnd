@@ -5,9 +5,9 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: user1
-      POSTGRES_PASSWORD: '1234'
-      POSTGRES_DB: prueba
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 'postgres1234'
+      POSTGRES_DB: db_bitacora_prod
 
   admin:
     image: adminer

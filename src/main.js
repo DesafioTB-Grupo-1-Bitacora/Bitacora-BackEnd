@@ -6,18 +6,6 @@ const routes = require("./routes");
 
 const app = express();
 
-app.use((req, res, next) => {
-  res.setHeader(
-    "Strict-Transport-Security",
-    "max-age=63072000; includeSubDomains"
-  );
-  res.setHeader("Content-Security-Policy", "default-src 'self'");
-  res.setHeader("X-Frame-Options", "DENY");
-  res.setHeader("X-XSS-Protection", "1; mode=block");
-  res.setHeader("X-Content-Type-Options", "nosniff");
-  next();
-});
-
 app.use(express.json());
 app.use("/bitacora-service", routes(db));
 
