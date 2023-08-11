@@ -13,7 +13,7 @@ const createUser = (db) => async (email, username, password) => {
 
 const selectUser = (db) => async (email, password) => {
   try {
-    const user = await db.maybeOne(selectByEmail(email));
+    const user = await db.query(selectByEmail(email));
 
     if (!user)
       return {
