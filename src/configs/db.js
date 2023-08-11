@@ -1,6 +1,13 @@
-const slonik = require("slonik");
+//const slonik = require("slonik");
+const { Pool } = require("pg");
 
-const db = slonik.createPool(process.env.DB_URL);
-//const db = {};
+//const db = slonik.createPool(process.env.DB_URL);
+const db = new Pool({
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT
+})
 
 module.exports = db;
