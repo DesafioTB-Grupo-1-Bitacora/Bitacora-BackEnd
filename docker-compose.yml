@@ -6,8 +6,8 @@ services:
       - 5432:5432
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 'postgres1234'
-      POSTGRES_DB: db_bitacora_prod
+      POSTGRES_PASSWORD: postgres1234
+      POSTGRES_DB: prueba
 
   admin:
     image: adminer

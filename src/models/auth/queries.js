@@ -1,4 +1,3 @@
-const { sql } = require("slonik")
 
 const insertUser = (email, username, password) => {
     return {

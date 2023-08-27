@@ -1,11 +1,16 @@
-const crypto = require("crypto");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const hashPass = (password) => {
-    const encryptedPassword = crypto.createHash("sha256").update(password).digest("hex");
-
+const hashPass = async (password) => {
+    const rounds = 10;
+    const salt = await bcrypt.genSalt(rounds);
+    const encryptedPassword = await bcrypt.hash(password, salt);
     return encryptedPassword;
 }
+
+const comparePass = (plain) => async (hash) => {
+    return await bcrypt.compare(plain, hash);
+};
 
 const serializeToken = (res, payload) => {
     const token = jwt.sign(payload, process.env.SECRET);
@@ -36,6 +41,7 @@ const clearCookie = (res) => {
 
 module.exports = {
     hashPass,
+    comparePass,
     serializeToken,
     deserializeToken,
     clearCookie

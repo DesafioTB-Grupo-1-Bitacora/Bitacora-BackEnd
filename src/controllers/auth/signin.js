@@ -1,7 +1,7 @@
 //const { hash, serialize } = require("simple-stateless-auth-library");
 const { selectUser } = require("../../models/auth");
 const errors = require("../../misc/errors");
-const { serializeToken } = require("../../misc/authUtils");
+const { serializeToken, comparePass } = require("../../misc/authUtils");
 
 // Define una variable global para llevar el registro de los intentos de inicio de sesión
 const loginAttempts = {};
@@ -14,7 +14,7 @@ module.exports = (db) => async (req, res, next) => {
     return next(errors["blocked_account"]);
   }
 
-  const response = await selectUser(await db)(email, password);
+  const response = await selectUser(await db)(email, comparePass(password));
 
   if (!response.ok) {
     // Si el usuario no existe o la contraseña es incorrecta, incrementa el contador de intentos
