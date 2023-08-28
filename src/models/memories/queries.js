@@ -28,7 +28,7 @@ const selectAllMemories = () => {
 
 const removeMemory = (title, email) => {
     return {
-        text: "DELETE * FROM memories WHERE title = $1 AND created_by = (SELECT id FROM users WHERE email = $2)",
+        text: "DELETE FROM memories WHERE title = $1 AND created_by = (SELECT id FROM users WHERE email = $2)",
         values: [title, email]
     }
 }
