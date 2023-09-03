@@ -16,7 +16,7 @@ module.exports = (db) => async (req, res, next) => {
 
   for (const memory of memories) {
     const files = await getFiles(memory.url);
-    console.log(files);
+
     filesArr.push({ title: memory.title, files: files });
   }
 
