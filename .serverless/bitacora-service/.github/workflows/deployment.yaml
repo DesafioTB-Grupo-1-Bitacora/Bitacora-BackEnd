@@ -1,0 +1,54 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
+        type: string
+        options:
+        - prod
+env:
+  DEPLOY_ENV: ${{ github.event.inputs.environment || 'dev' }}
+
+jobs:
+  deploy-dev:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment || 'dev' }}
+    env:
+     DB_NAME: ${{ vars.DB_NAME }}
+     DB_HOST: ${{ vars.DB_HOST }}
+     DB_PORT: ${{ vars.DB_PORT }}
+
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '18.x'
+    - name: Get env variables
+      run: |
+        echo $vars >> $GITHUB_ENV
+    - name: Install NPM dependencies
+      run: npm ci --cache .npm --prefer-offline
+    - name: Install Serverless Framework
+      run: npm install -g serverless
+    - name: Serverless AWS authentication
+      run: sls config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    - name: Deploy
+      run: |
+       sls deploy --stage ${{ env.DEPLOY_ENV }} --verbose --force
+       sls plugin install -n serverless-prune-plugin
+       sls prune --stage $DEPLOY_ENV -n 5 
+      if: github.event_name != 'pull_request'
+    - name: Tag version
+      uses: tvdias/github-tagger@v0.0.1
+      with:
+        repo-token: ${{ secrets.ACCESS_TOKEN }}
+        tag: ${{ env.DEPLOY_ENV }}-${{ github.run_id }}
+      if: github.event_name != 'pull_request'
