@@ -31,10 +31,11 @@ module.exports = {
     symlinks: false,
   },
   plugins: [
+    new webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ }),
     new webpack.IgnorePlugin({
       checkResource(resource) {
         const lazyImports = [
-          'cache-manager',
+          'cache-manager'
         ];
         if (!lazyImports.includes(resource)) {
           return false;

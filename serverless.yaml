@@ -23,7 +23,6 @@ provider:
     NO_COLOR: true
 
 plugins:
-  - serverless-webpack
   - serverless-offline
 
 functions:
