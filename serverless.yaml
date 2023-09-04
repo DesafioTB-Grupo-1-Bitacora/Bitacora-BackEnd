@@ -33,6 +33,7 @@ package:
     - node_modules/serverless-webpack/**
     - node_modules/serverless-offline/**
     - node_modules/terser-webpack-plugin/**
+    - node_modules/@aws-sdk/**
 
 functions:
   entrypoint:
