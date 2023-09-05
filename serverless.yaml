@@ -23,9 +23,21 @@ provider:
     NO_COLOR: true
 
 plugins:
-  - serverless-webpack
   - serverless-offline
 
+package:
+  exclude:
+    - node_modules/webpack/**
+    - node_modules/dotenv/**
+    - node_modules/nodemon/**
+    - node_modules/serverless-webpack/**
+    - node_modules/serverless-offline/**
+    - node_modules/terser-webpack-plugin/**
+    - node_modules/@aws-sdk/**
+    - node_modules/@ts-config/**
+    - node_modules/@types/**
+    - sql
+    - .github/**
 functions:
   entrypoint:
     handler: src/index.handler

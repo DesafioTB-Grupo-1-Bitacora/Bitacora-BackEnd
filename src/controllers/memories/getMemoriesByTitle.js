@@ -8,7 +8,7 @@ module.exports = (db) => async (req, res, next) => {
   const response = await getMemoriesByTitle(await db)(title);
 
   if (!response.ok) return next(errors[500]);
-
+  console.log(response);
   const [memory] = response.content;
 
   const files = await getFiles(memory.multimedia_url);
