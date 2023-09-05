@@ -10,13 +10,15 @@ module.exports = (db) => async (req, res, next) => {
 
     if(!response.ok) return next(errors[500]);
 
-    const bufferArray = req.files.map(file => file.buffer) || null;
+    console.log(req.files);
+
+    const bufferArray = req.files.map(file => ({file: file.buffer, tag: file.fieldname})) || null;
 
     createFolder(multimedia_url);
 
     if(bufferArray){
         for(let buffer of bufferArray){
-            await uploadFile(buffer, multimedia_url)
+            await uploadFile(buffer.file, multimedia_url, buffer.tag)
         }
     }
 

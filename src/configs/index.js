@@ -1,3 +1,4 @@
 module.exports = {
-    db: require("./db")
+    db: require("./db"),
+    cors: require("./cors")
 }

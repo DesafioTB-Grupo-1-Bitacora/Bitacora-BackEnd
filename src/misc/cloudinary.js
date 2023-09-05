@@ -22,16 +22,16 @@ const createFolder = async (folder) => {
     await cloudinary.api.create_folder(folder).then(res => console.log(res)).catch(error => console.log(error));
 }
 
-const uploadFile = async (buffer, folder) => {
-    await cloudinary.uploader.upload_stream({resource_type: "auto", folder: folder, use_filename: true}, (error, result) => {
+const uploadFile = async (buffer, folder, tag) => {
+    await cloudinary.uploader.upload_stream({resource_type: "auto", folder: folder, use_filename: true, tags: tag}, (error, result) => {
         error ? console.log(error) : console.log(result)
     }).end(buffer);
 }
 
 const getFiles = async (folder) => {
-    const result = await cloudinary.search.expression(`folder:${folder}`).execute();
-    const urls = result.resources.map(resource => resource.secure_url);
-    return urls;
+    const result = await cloudinary.search.expression(`folder:${folder}`).with_field("tags").execute();
+    const files = result.resources.map(resource => ({ tag: resource.tags[0], url: resource.secure_url }));
+    return files;
 }
 
 const deleteFiles = async (folder) => {

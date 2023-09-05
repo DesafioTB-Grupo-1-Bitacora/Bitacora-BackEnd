@@ -4,7 +4,6 @@ const errors = require("../../misc/errors");
 
 module.exports = (db) => async (req, res, next) => {
   const { title } = req.params;
-  console.log(title);
 
   const response = await getMemoriesByTitle(await db)(title);
 

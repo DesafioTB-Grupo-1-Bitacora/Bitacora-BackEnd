@@ -7,7 +7,6 @@ const { serializeToken, comparePass } = require("../../misc/authUtils");
 const loginAttempts = {};
 
 module.exports = (db) => async (req, res, next) => {
-  console.log("ESTOY LOGUEANDO");
   const { email, password } = req.body;
 
   // Verifica si ha habido más de 5 intentos de inicio de sesión fallidos en los últimos 5 minutos

@@ -1,7 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const multer = require("multer");
-const { db } = require("./configs");
+const cors = require("cors");
+const { db, cors: options } = require("./configs");
 const cookieParser = require("cookie-parser");
 const errors = require("./misc/errors");
 const routes = require("./routes");
@@ -13,6 +14,7 @@ const upload = multer({ storage });
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors(options));
 app.use(upload.any());
 
 app.use("/bitacora-service", routes(db));
