@@ -46,12 +46,6 @@ const deleteFiles = async (folder) => {
     await cloudinary.api.delete_folder(folder);
 }
 
-/* const bufferImg = fs.readFileSync("../test.jpg");
-const bufferVid = fs.readFileSync("../video_test.mp4");
-
-uploadFile(bufferImg, "test/Ser");
-uploadFile(bufferVid, "test/Ser"); */
-
 module.exports = {
     checkFolder,
     createFolder,
