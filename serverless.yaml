@@ -28,7 +28,6 @@ plugins:
 package:
   exclude:
     - node_modules/webpack/**
-    - node_modules/dotenv/**
     - node_modules/nodemon/**
     - node_modules/serverless-webpack/**
     - node_modules/serverless-offline/**
