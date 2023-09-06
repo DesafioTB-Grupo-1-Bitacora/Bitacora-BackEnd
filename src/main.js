@@ -28,26 +28,6 @@ app.use(({ statusCode, error }, _, res, __) => {
   });
 });
 
-app.use((err, req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET,HEAD,OPTIONS,POST,PUT,PATCH,DELETE"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );     
-
-  //Check sintax error in request
-  if (err instanceof SyntaxError) {
-    Logger.error(err);
-    return ResponseGenerator.error(res,Status.REQUEST_ERROR,"JSON sended was bad formatted",Codes.Reporting.REQUEST_ERROR);
-  }
-  next();
-});
-
 app.listen(process.env.PORT, () =>
   console.log("> Listening at:", process.env.PORT)
 );
