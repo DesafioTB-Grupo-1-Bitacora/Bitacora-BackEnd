@@ -22,6 +22,17 @@ provider:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1 # makes the aws sdk reuse the HTTP(s) connections, speeds ups connections and DynamoDB specially.
     NO_COLOR: true
 
+  iam:
+    role:
+      name: '${self:service}-${opt:stage}'
+      path: '/lambda-${opt:stage}/'
+      statements:
+        - Effect: 'Allow'
+          Resource:
+            - '*'
+          Action:
+            - 'secretsmanager:GetSecretValue'
+
 plugins:
   - serverless-offline
 

@@ -1,22 +1,20 @@
 require("dotenv").config({ path: "../../.env" });
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
+const { getSecret } = require('../configs/secrets')
 
-//Hardcodeado temporalmente
 
-cloudinary.config({
-    cloud_name: "ddetpj28z",
-    api_key: "649934916723966",
-    api_secret: "gYlN2-cbwUYNDIG1FnMsM1oTG1U",
-    secure: true,
+getSecret('cloudinary_secrets')
+.then((result) => {
+    const {cloudinary_cloud_name, cloudinary_api_key, cloudinary_api_secret} = JSON.parse(result)
+    cloudinary.config({
+        cloud_name: cloudinary_cloud_name,
+        api_key: cloudinary_api_key,
+        api_secret: cloudinary_api_secret,
+        secure: true,
+    })
 })
 
-/* cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-    secure: true,
-}) */
 
 const checkFolder = async (folder) => {
     try {

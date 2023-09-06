@@ -30,7 +30,7 @@ module.exports = (db) => async (req, res, next) => {
   // Si el inicio de sesión es exitoso, reinicia el contador de intentos para ese usuario
   loginAttempts[email] = { attempts: 0, timestamp: Date.now() };
 
-  serializeToken(res, response.content);
+  await serializeToken(res, response.content);
 
   res.status(200).json({
     success: true,
