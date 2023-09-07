@@ -22,8 +22,6 @@ app.use((_, __, next) => {
 });
 
 app.use(({ statusCode, error }, _, res, __) => {
-  res.header('Access-Control-Allow-Origin', '*');  
-
   res.status(statusCode).json({
     success: false,
     message: error.message,

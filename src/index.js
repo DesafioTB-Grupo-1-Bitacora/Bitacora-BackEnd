@@ -5,8 +5,10 @@ const app = require('./main');
 app.use(eventContext())
 const server = createServer(app)
 
-const handler = (event, context) => {
-   return proxy(server, event, context, 'PROMISE').promise;
+const handler = async (event, context) => {
+   const response =  await proxy(server, event, context, 'PROMISE').promise;
+   response.headers['Access-Control-Allow-Origin'] = '*';
+   return response;
 };
 
 module.exports.handler = handler;
