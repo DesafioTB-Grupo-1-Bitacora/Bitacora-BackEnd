@@ -28,9 +28,7 @@ const serializeToken = async (res, payload) => {
 }
 
 const deserializeToken = async (req) => {
-    //const { access_token } = req?.cookies || {};
-    console.log(33, req.headers)
-    const token = req.headers['authorization']
+    const token = req.headers['authorization'].split(' ')[1]
 
     try {
         const payload = jwt.verify(token, await getJwtSecret());
