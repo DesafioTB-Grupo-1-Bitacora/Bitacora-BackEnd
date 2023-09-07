@@ -22,17 +22,16 @@ app.use((_, __, next) => {
 });
 
 app.use(({ statusCode, error }, _, res, __) => {
+  res.header('Access-Control-Allow-Origin', '*');  
+
   res.status(statusCode).json({
     success: false,
     message: error.message,
   });
-
-  res.header('Access-Control-Allow-Origin', '*');  
 });
 
 app.listen(process.env.PORT, () =>
   console.log("> Listening at:", process.env.PORT)
 );
 
-console.log("DB", { name: process.env.DB_NAME });
 module.exports = app;
