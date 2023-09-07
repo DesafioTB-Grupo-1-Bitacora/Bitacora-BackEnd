@@ -7,7 +7,7 @@ const server = createServer(app)
 
 const handler = async (event, context) => {
    const response =  await proxy(server, event, context, 'PROMISE').promise;
-   response.headers['Access-Control-Allow-Origin'] = '*';
+   response.headers['Access-Control-Allow-Origin'] = process.env.ORIGIN_HEADER;
    return response;
 };
 

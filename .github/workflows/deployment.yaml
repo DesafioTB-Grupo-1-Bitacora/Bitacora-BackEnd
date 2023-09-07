@@ -25,6 +25,7 @@ jobs:
      DB_NAME: ${{ vars.DB_NAME }}
      DB_HOST: ${{ vars.DB_HOST }}
      DB_PORT: ${{ vars.DB_PORT }}
+     ORIGIN_HEADER: ${{ vars.DB_PORT }}
 
     steps:
     - uses: actions/checkout@v1
