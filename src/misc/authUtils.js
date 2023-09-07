@@ -24,6 +24,7 @@ const serializeToken = async (res, payload) => {
       secure: true,
       httpOnly: false,
     });
+    return token;
 }
 
 const deserializeToken = async (req) => {
