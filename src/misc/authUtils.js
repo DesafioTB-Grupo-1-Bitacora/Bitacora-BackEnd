@@ -2,7 +2,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { getSecret } = require('../configs/secrets')
 
-
 const getJwtSecret = async () => {
     return JSON.parse(await getSecret('jwt_secret')).jwt_secret;
 }
@@ -18,7 +17,6 @@ const comparePass = (plain) => async (hash) => {
     return await bcrypt.compare(plain, hash);
 };
 
-
 const serializeToken = async (res, payload) => {
     const token = jwt.sign(payload, await getJwtSecret());
     res.cookie("access_token", token, {
@@ -29,10 +27,12 @@ const serializeToken = async (res, payload) => {
 }
 
 const deserializeToken = async (req) => {
-    const { access_token } = req?.cookies || {};
+    //const { access_token } = req?.cookies || {};
+
+    const token = req?.headers.cookie.split("=")[1];
 
     try {
-        const payload = jwt.verify(access_token, await getJwtSecret());
+        const payload = jwt.verify(token, await getJwtSecret());
         if (!payload) return false;
         return payload;
     } catch (error) {
