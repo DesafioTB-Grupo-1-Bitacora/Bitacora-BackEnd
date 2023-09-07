@@ -22,7 +22,7 @@ const serializeToken = async (res, payload) => {
     res.cookie("access_token", token, {
       expires: new Date(Date.now() + (60 * 60 * 1000)),
       secure: true,
-      httpOnly: true,
+      httpOnly: false,
     });
 }
 
